@@ -1,44 +1,40 @@
-# Helper functions for the server side of FounderLab apps
+## Server side renderer function for React, used in Frameworkstein apps
 
-#####backbone-rest render example:
-```javascript
-...
-import {render} from 'fl-server-utils'
+createServerRenderer
+--------------------
 
-const detail = (applications, options, callback) => {
-  // applications are a list of plain objects (not backbone models)
-  callback(null, _.pick(applications, 'id'))
-}
-detail.$raw = true // flag it as raw
+Helper method that takes care of a bunch of boilerplate for rendering react components server side. 
 
-export default class ApplicationsController extends RestController {
-  constructor(options) {
-    super(options.app, _.defaults({
-      model_type: Application,
-      route: '/api/applications',
-      auth: [...options.auth, createAuthMiddleware({canAccess})],
-      templates: {
-        detail: detail,
-      },
-      default_template: 'detail',
-    }, options))
-    // Overwrite the render method, making sure to bind it to the controller
-    this.render = render.bind(this)
-  }
-}
-```
-
-#####createServerRenderer:
-Helper method that takes care of a bunch of bs boilerplate for rendering react components server side. 
 Usage: 
+------
 
 ```javascript
-app.get('*', createServerRenderer({
-  createStore, 
-  getRoutes,
-  scripts: _.map(_.pick(require('../../webpack-assets.json'), ['shared.js', 'app']), entry => entry.js),
-  omit: 'admin',
-  alwaysFetch: require('../../shared/modules/app/containers/App'),
-  config: _.pick(config, config.clientConfigKeys),
-}))
+import _ from 'lodash'
+import {createServerRenderer} from 'fl-react-server'
+import config from '../config'
+import createStore from '../../shared/createStore'
+import getRoutes from '../../shared/routes'
+import loadInitialState from '../loadInitialState'
+import App from '../../shared/modules/app/containers/App'
+
+export default createServerRenderer({
+  createStore,                        // Function to create your redux store.
+
+  getRoutes,                          // Function that returns your react-router routes.
+
+  config,                             // Object or function that returns an object. 
+                                      // Config gets added to your stores initial state.
+
+  loadInitialState: (req, callback) => callback(null, state),                   
+                                      // Function called on each request. 
+                                      // You can load up any extra data to place in your store here. 
+                                      // It'll be added to the initial state.
+  
+  omit: 'admin',                      // String or list of strings
+                                      // These properties will be omitted from the stores initial state.
+
+  alwaysFetch: App,                   // Component or list of components that will have their 
+                                      // fetchData method called on each request.
+})
+
 ```
