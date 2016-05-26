@@ -1,0 +1,53 @@
+{
+  "name": "fl-server-utils",
+  "version": "0.10.1",
+  "description": "Helper functions for the server side of FounderLab apps",
+  "main": "lib/index.js",
+  "author": {
+    "name": "Gwilym Humphreys",
+    "url": "https://github.com/gwilymhumphreys"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/founderlab/fl-server-utils.git"
+  },
+  "scripts": {
+    "prepublish": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
+    "build": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --out-dir ./lib",
+    "watch": "rm -rf ./lib && babel ./src --ignore '/node_modules/' --watch --out-dir ./lib",
+    "test": "eval $(cat test/.env) mocha test/**/*.tests.js",
+    "cover": "eval $(cat test/.env) istanbul cover _mocha -- test/**/*.tests.js"
+  },
+  "dependencies": {
+    "lodash": "^4.0.0",
+    "queue-async": "^1.0.7"
+  },
+  "// wouldBePeerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "history": "*",
+    "redux": "*",
+    "react-redux": "*",
+    "redux-router": "*",
+    "react-helmet": "*",
+    "fl-utils": "*"
+  },
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.5.1",
+    "eslint-config-founderlab": "^0.1.0",
+    "eslint-plugin-react": "^3.4.2",
+    "expect": "^1.12.2",
+    "fl-utils": "^0.1.0",
+    "history": "^2.1.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-helmet": "^3.1.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.5.2",
+    "redux-router": "^1.0.0-beta8"
+  }
+}
