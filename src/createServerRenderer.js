@@ -8,7 +8,7 @@ import {Provider} from 'react-redux'
 import {ReduxRouter} from 'redux-router'
 import {reduxReactRouter, match} from 'redux-router/server'
 import Helmet from 'react-helmet'
-import {fetchComponentData} from 'fl-utils'
+import {fetchComponentData} from 'fetch-component-data'
 
 import {jsAssets, cssAssets} from './assets'
 
@@ -27,8 +27,8 @@ export default function createServerRenderer(_options) {
   const {createStore, getRoutes, config={}} = options
   let alwaysFetch = options.alwaysFetch || []
   if (!_.isArray(alwaysFetch)) alwaysFetch = [alwaysFetch]
-  if (!createStore) throw new Error('[fl-react-utils] createServerRenderer: Missing createStore from options')
-  if (!getRoutes) throw new Error('[fl-react-utils] createServerRenderer: Missing getRoutes from options')
+  if (!createStore) throw new Error('[fl-react-server] createServerRenderer: Missing createStore from options')
+  if (!getRoutes) throw new Error('[fl-react-server] createServerRenderer: Missing getRoutes from options')
 
   return function app(req, res) {
     const queue = new Queue(1)

@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "lodash": "^4.0.0",
-    "queue-async": "^1.0.7"
+    "queue-async": "^1.0.7",
+    "fetch-component-data": "^0.3.0"
   },
   "// wouldBePeerDependencies": {
     "react": "*",
@@ -30,8 +31,7 @@
     "redux": "*",
     "react-redux": "*",
     "redux-router": "*",
-    "react-helmet": "*",
-    "fl-utils": "*"
+    "react-helmet": "*"
   },
   "devDependencies": {
     "babel": "^5.8.29",
@@ -40,7 +40,6 @@
     "eslint-config-founderlab": "^0.1.0",
     "eslint-plugin-react": "^3.4.2",
     "expect": "^1.12.2",
-    "fl-utils": "^0.1.0",
     "history": "^2.1.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
