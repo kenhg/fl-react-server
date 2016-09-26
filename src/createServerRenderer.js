@@ -58,7 +58,10 @@ export default function createServerRenderer(_options) {
 
       store.dispatch(match(req.originalUrl, (err, redirectLocation, routerState) => {
         if (err) return sendError(res, err)
-        if (redirectLocation) return res.redirect(redirectLocation.pathname + (redirectLocation.search || ''))
+        if (redirectLocation) {
+          const redirectPath = _.isString(redirectLocation) ? redirectLocation : redirectLocation.pathname + (redirectLocation.search || '')
+          return res.redirect(redirectPath)
+        }
         if (!routerState) return res.status(404).send('Not found')
 
         const components = _.uniq(alwaysFetch.concat(routerState.components))
