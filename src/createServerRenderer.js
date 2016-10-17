@@ -24,7 +24,7 @@ const defaults = {
 
 export default function createServerRenderer(_options) {
   const options = _.extend({}, defaults, _options)
-  const {createStore, getRoutes, config={}} = options
+  const {createStore, getRoutes, gaId, config={}} = options
   let alwaysFetch = options.alwaysFetch || []
   if (!_.isArray(alwaysFetch)) alwaysFetch = [alwaysFetch]
   if (!createStore) throw new Error('[fl-react-server] createServerRenderer: Missing createStore from options')
@@ -94,6 +94,19 @@ export default function createServerRenderer(_options) {
           const rendered = renderToString(component)
           const head = Helmet.rewind()
 
+          // Google analytics tag
+          const gaTag = gaId ? `
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', '${gaId}', 'auto');
+              ga('send', 'pageview');
+
+            </script>` : ''
+
           const html = `
             <!DOCTYPE html>
             <html>
@@ -112,11 +125,11 @@ export default function createServerRenderer(_options) {
               <body id="app">
                 <div id="react-view">${rendered}</div>
                 ${scriptTags}
+                ${gaTag}
               </body>
             </html>
           `
           res.type('html').send(html)
-
         })
       }))
     })
