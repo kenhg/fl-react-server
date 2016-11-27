@@ -34,7 +34,7 @@ export default function createServerRenderer(_options) {
     const queue = new Queue(1)
 
     const serverState = {
-      auth: req.user ? {user: _.omit(req.user.toJSON(), 'password', '_rev')} : {},
+      auth: req.user ? {user: _.omit(req.user, 'password', '_rev')} : {},
     }
     if (options.loadInitialState) {
       queue.defer(callback => options.loadInitialState(req, (err, state) => {
