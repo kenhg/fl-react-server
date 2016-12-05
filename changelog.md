@@ -2,6 +2,9 @@
 ## [Unreleased]
   
 
+## [0.3.1]
+ - Server renderer takes another option, `extraTags`, a string for additional external script tags
+
 ## [0.3.0]
  - req.user is expected to be a plain JS object rather than a backbone model
 
