@@ -106,6 +106,7 @@ export default function createServerRenderer(_options) {
               ga('send', 'pageview');
             </script>` : ''
 
+          const extraPreScriptTags = options.extraPreScriptTags || ''
           const extraTags = options.extraTags || ''
 
           const html = `
@@ -125,6 +126,7 @@ export default function createServerRenderer(_options) {
               </head>
               <body id="app">
                 <div id="react-view">${rendered}</div>
+                ${extraPreScriptTags}
                 ${scriptTags}
                 ${gaTag}
                 ${extraTags}
