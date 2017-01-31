@@ -106,8 +106,24 @@ export default function createServerRenderer(_options) {
               ga('send', 'pageview');
             </script>` : ''
 
-          const extraPreScriptTags = options.extraPreScriptTags || ''
-          const extraTags = options.extraTags || ''
+          let preScriptTags = ''
+          if (options.preScriptTags) {
+            if (_.isFunction(options.preScriptTags)) {
+              preScriptTags = options.preScriptTags(req)
+            }
+            else {
+              preScriptTags = options.preScriptTags
+            }
+          }
+          let postScriptTags = ''
+          if (options.postScriptTags) {
+            if (_.isFunction(options.postScriptTags)) {
+              postScriptTags = options.postScriptTags(req)
+            }
+            else {
+              postScriptTags = options.postScriptTags
+            }
+          }
 
           const html = `
             <!DOCTYPE html>
@@ -126,10 +142,10 @@ export default function createServerRenderer(_options) {
               </head>
               <body id="app">
                 <div id="react-view">${rendered}</div>
-                ${extraPreScriptTags}
+                ${preScriptTags}
                 ${scriptTags}
                 ${gaTag}
-                ${extraTags}
+                ${postScriptTags}
               </body>
             </html>
           `
