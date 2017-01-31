@@ -2,6 +2,9 @@
 ## [Unreleased]
   
 
+## [0.4.0]
+ - Extra script tags renamed to preScriptTags & postScriptTags
+
 ## [0.3.1]
  - Server renderer takes another option, `extraTags`, a string for additional external script tags
 
