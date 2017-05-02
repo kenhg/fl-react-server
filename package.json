@@ -20,9 +20,10 @@
     "cover": "eval $(cat test/.env) istanbul cover _mocha -- test/**/*.tests.js"
   },
   "dependencies": {
+    "fetch-component-data": "^0.3.0",
     "lodash": "^4.0.0",
     "queue-async": "^1.0.7",
-    "fetch-component-data": "^0.3.0"
+    "serialize-javascript": "^1.3.0"
   },
   "// wouldBePeerDependencies": {
     "react": "*",

@@ -9,6 +9,7 @@ import {ReduxRouter} from 'redux-router'
 import {reduxReactRouter, match} from 'redux-router/server'
 import Helmet from 'react-helmet'
 import {fetchComponentData} from 'fetch-component-data'
+import serialize from 'serialize-javascript'
 
 import {jsAssets, cssAssets} from './assets'
 
@@ -137,7 +138,7 @@ export default function createServerRenderer(_options) {
 
                 ${cssTags}
                 <script type="application/javascript">
-                  window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+                  window.__INITIAL_STATE__ = ${serialize(initialState, {isJSON: true})}
                 </script>
               </head>
               <body id="app">
